@@ -7,11 +7,6 @@ terraform {
   }
 }
 
-provider "aws" {
-  region = "us-east-1"
-  #access_key = var.access_key
-}
-
 
 ###################### Key Pair ######################
 resource "aws_key_pair" "ssh_key" {
@@ -33,16 +28,3 @@ resource "aws_instance" "ec2" {
   key_name = aws_key_pair.ssh_key.key_name
 }
 ###################### ### ######################
-
-
-##################### Variables #####################
-variable "access_key" {
-}
-##################### ######### #####################
-
-
-###################### Outputs ######################
-output "public_ip_ec2" {
-  value = aws_instance.ec2.public_ip
-}
-###################### ####### ######################
