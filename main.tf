@@ -28,3 +28,27 @@ resource "aws_instance" "ec2" {
   key_name = aws_key_pair.ssh_key.key_name
 }
 ###################### ### ######################
+
+
+###################### VPC ######################
+resource "aws_vpc" "vpc_terraform" {
+  cidr_block = "172.16.0.0/16"
+
+  tags = {
+    Name = "vpc_terraform"
+  }
+}
+###################### ### ######################
+
+
+###################### Subnet ######################
+resource "aws_subnet" "subnet_terraform" {
+  vpc_id            = aws_vpc.vpc_terraform.id
+  cidr_block        = "172.16.10.0/24"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "subnet_terraform"
+  }
+}
+###################### ###### ######################
