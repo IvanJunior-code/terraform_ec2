@@ -21,7 +21,7 @@ resource "aws_instance" "ec2" {
   ami                    = "ami-01c146ce0993b7884" #Ubuntu-2023-10-27T15-45 # aws ec2 describe-images --owners amazon --query 'Images[*].[ImageId, Name]' --output table --region us-east-1 | grep Ubuntu-2023-10
   instance_type          = "t3.small"              # aws ec2 describe-instance-types --query 'InstanceTypes[*].[InstanceType, VCpuInfo.DefaultVCpus, MemoryInfo.SizeInMiB, NetworkInfo.NetworkPerformance, StorageInfo.TotalVolumeSize]' --output table | grep small
   subnet_id              = aws_subnet.subnet_terraform.id
-  vpc_security_group_ids = [aws_security_group.allow_ssh_http_https_dns_ipv4.id]
+  vpc_security_group_ids = [aws_security_group.sg_terraform.id]
 
   tags = {
     Name = "EC2"
@@ -59,13 +59,13 @@ resource "aws_subnet" "subnet_terraform" {
 
 
 ###################### Security Group ######################
-resource "aws_security_group" "allow_ssh_http_https_dns_ipv4" {
-  name        = "allow_ssh_http_https_dns_ipv4"
+resource "aws_security_group" "sg_terraform" {
+  name        = "sg_terraform"
   description = "Allow SSH, HTTP, HTTPS and DNS inbound traffic and outbound traffic"
   vpc_id      = aws_vpc.vpc_terraform.id
 
   tags = {
-    Name = "allow_ssh_http_https_dns_ipv4"
+    Name = "sg_terraform"
   }
 }
 ###################### ######## ##### ######################
@@ -73,7 +73,7 @@ resource "aws_security_group" "allow_ssh_http_https_dns_ipv4" {
 
 ###################### Security Group Ingress Rule ######################
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_ipv4" {
-  security_group_id = aws_security_group.allow_ssh_http_https_dns_ipv4.id
+  security_group_id = aws_security_group.sg_terraform.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
@@ -84,7 +84,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_ipv4" {
 
 ###################### Security Group Egress Rule ######################
 resource "aws_vpc_security_group_egress_rule" "egress_ssh_ipv4" {
-  security_group_id = aws_security_group.allow_ssh_http_https_dns_ipv4.id
+  security_group_id = aws_security_group.sg_terraform.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
