@@ -12,6 +12,11 @@ terraform {
 resource "aws_key_pair" "ssh_key" {
   key_name   = "ssh_key"
   public_key = var.access_key
+
+  tags = {
+    Name      = "Key Pair"
+    ManagedBy = "Terraform"
+  }
 }
 ###################### ### #### ######################
 
@@ -24,7 +29,7 @@ resource "aws_instance" "ec2" {
   vpc_security_group_ids = [aws_security_group.sg_terraform.id]
 
   tags = {
-    Name = "EC2"
+    Name      = "EC2"
     ManagedBy = "Terraform"
   }
 
@@ -38,7 +43,7 @@ resource "aws_vpc" "vpc_terraform" {
   cidr_block = "172.16.0.0/16"
 
   tags = {
-    Name = "vpc_terraform"
+    Name      = "VPC"
     ManagedBy = "Terraform"
   }
 }
@@ -53,7 +58,7 @@ resource "aws_subnet" "subnet_terraform" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "subnet_terraform"
+    Name      = "Subnet"
     ManagedBy = "Terraform"
   }
 
@@ -68,7 +73,7 @@ resource "aws_security_group" "sg_terraform" {
   vpc_id      = aws_vpc.vpc_terraform.id
 
   tags = {
-    Name = "sg_terraform"
+    Name      = "Security Group"
     ManagedBy = "Terraform"
   }
 }
@@ -82,6 +87,11 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_ipv4" {
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
+
+  tags = {
+    Name      = "Ingress Rule SSH IPv4"
+    ManagedBy = "Terraform"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_http_ipv4" {
@@ -90,6 +100,11 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_ipv4" {
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
+
+  tags = {
+    Name      = "Ingress Rule HTTP IPv4"
+    ManagedBy = "Terraform"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_https_ipv4" {
@@ -98,6 +113,11 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_https_ipv4" {
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
+
+  tags = {
+    Name      = "Ingress Rule HTTPS IPv4"
+    ManagedBy = "Terraform"
+  }
 }
 ###################### ######## ##### ####### #### ######################
 
@@ -109,6 +129,11 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_ipv4" {
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
+
+  tags = {
+    Name      = "Egress Rule SSH IPv4"
+    ManagedBy = "Terraform"
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "egress_http_ipv4" {
@@ -117,6 +142,11 @@ resource "aws_vpc_security_group_egress_rule" "egress_http_ipv4" {
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
+
+  tags = {
+    Name      = "Egress Rule HTTP IPv4"
+    ManagedBy = "Terraform"
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "egress_https_ipv4" {
@@ -125,6 +155,11 @@ resource "aws_vpc_security_group_egress_rule" "egress_https_ipv4" {
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
+
+  tags = {
+    Name      = "Egress Rule HTTPS IPv4"
+    ManagedBy = "Terraform"
+  }
 }
 ###################### ######## ##### ###### #### ######################
 
@@ -134,7 +169,7 @@ resource "aws_internet_gateway" "gw_terraform" {
   vpc_id = aws_vpc.vpc_terraform.id
 
   tags = {
-    Name = "Internet Gateway Terraform"
+    Name      = "Internet Gateway"
     ManagedBy = "Terraform"
   }
 }
@@ -151,7 +186,7 @@ resource "aws_route_table" "route_table_terraform" {
   }
 
   tags = {
-    Name = "Route Table Terraform"
+    Name      = "Route Table"
     ManagedBy = "Terraform"
   }
 }
