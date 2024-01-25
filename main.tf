@@ -15,7 +15,7 @@ resource "aws_key_pair" "ssh_key" {
 
   tags = {
     Name      = "Key Pair"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ### #### ######################
@@ -30,7 +30,7 @@ resource "aws_instance" "ec2" {
 
   tags = {
     Name      = "EC2"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 
   key_name = aws_key_pair.ssh_key.key_name
@@ -44,7 +44,7 @@ resource "aws_vpc" "vpc_terraform" {
 
   tags = {
     Name      = "VPC"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ### ######################
@@ -59,7 +59,7 @@ resource "aws_subnet" "subnet_terraform" {
 
   tags = {
     Name      = "Subnet"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 
 }
@@ -74,7 +74,7 @@ resource "aws_security_group" "sg_terraform" {
 
   tags = {
     Name      = "Security Group"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ######## ##### ######################
@@ -90,7 +90,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_ipv4" {
 
   tags = {
     Name      = "Ingress Rule SSH IPv4"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 
@@ -103,7 +103,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_ipv4" {
 
   tags = {
     Name      = "Ingress Rule HTTP IPv4"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 
@@ -116,7 +116,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_https_ipv4" {
 
   tags = {
     Name      = "Ingress Rule HTTPS IPv4"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ######## ##### ####### #### ######################
@@ -132,7 +132,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_ipv4" {
 
   tags = {
     Name      = "Egress Rule SSH IPv4"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 
@@ -145,7 +145,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_http_ipv4" {
 
   tags = {
     Name      = "Egress Rule HTTP IPv4"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 
@@ -158,7 +158,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_https_ipv4" {
 
   tags = {
     Name      = "Egress Rule HTTPS IPv4"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ######## ##### ###### #### ######################
@@ -170,7 +170,7 @@ resource "aws_internet_gateway" "gw_terraform" {
 
   tags = {
     Name      = "Internet Gateway"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ######## ####### ######################
@@ -187,7 +187,7 @@ resource "aws_route_table" "route_table_terraform" {
 
   tags = {
     Name      = "Route Table"
-    ManagedBy = "Terraform"
+    ManagedBy = var.tags_ManagedBy
   }
 }
 ###################### ##### ##### ######################
