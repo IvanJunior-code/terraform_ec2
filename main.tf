@@ -10,7 +10,7 @@ terraform {
 
 ###################### Key Pair ######################
 resource "aws_key_pair" "ssh_key_terraform" {
-  key_name   = "ssh_key"
+  key_name   = var.key_name
   public_key = var.access_key
 
   tags = {
@@ -23,8 +23,8 @@ resource "aws_key_pair" "ssh_key_terraform" {
 
 ###################### EC2 ######################
 resource "aws_instance" "ec2_terraform" {
-  ami                    = "ami-01c146ce0993b7884" #Ubuntu-2023-10-27T15-45 # aws ec2 describe-images --owners amazon --query 'Images[*].[ImageId, Name]' --output table --region us-east-1 | grep Ubuntu-2023-10
-  instance_type          = "t3.small"              # aws ec2 describe-instance-types --query 'InstanceTypes[*].[InstanceType, VCpuInfo.DefaultVCpus, MemoryInfo.SizeInMiB, NetworkInfo.NetworkPerformance, StorageInfo.TotalVolumeSize]' --output table | grep small
+  ami                    = var.ami           # aws ec2 describe-images --owners amazon --query 'Images[*].[ImageId, Name]' --output table --region us-east-1 | grep Ubuntu-2023-10
+  instance_type          = var.instance_type # aws ec2 describe-instance-types --query 'InstanceTypes[*].[InstanceType, VCpuInfo.DefaultVCpus, MemoryInfo.SizeInMiB, NetworkInfo.NetworkPerformance, StorageInfo.TotalVolumeSize]' --output table | grep small
   subnet_id              = aws_subnet.subnet_terraform.id
   vpc_security_group_ids = [aws_security_group.sg_terraform.id]
 
@@ -40,7 +40,7 @@ resource "aws_instance" "ec2_terraform" {
 
 ###################### VPC ######################
 resource "aws_vpc" "vpc_terraform" {
-  cidr_block = "172.16.0.0/16"
+  cidr_block = var.vpc_cidr_block
 
   tags = {
     Name      = "VPC"
@@ -53,8 +53,8 @@ resource "aws_vpc" "vpc_terraform" {
 ###################### Subnet ######################
 resource "aws_subnet" "subnet_terraform" {
   vpc_id                  = aws_vpc.vpc_terraform.id
-  cidr_block              = "172.16.10.0/24"
-  availability_zone       = "us-east-1a"
+  cidr_block              = var.subnet_cidr_block
+  availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
   tags = {
@@ -68,7 +68,7 @@ resource "aws_subnet" "subnet_terraform" {
 
 ###################### Security Group ######################
 resource "aws_security_group" "sg_terraform" {
-  name        = "sg_terraform"
+  name        = var.sg_name
   description = "Allow SSH, HTTP, HTTPS inbound traffic and outbound traffic"
   vpc_id      = aws_vpc.vpc_terraform.id
 
