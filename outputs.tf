@@ -4,6 +4,6 @@ output "public_ip_ec2" {
 }
 
 output "connect_ssh" {
-  value = "ssh -i ~/.ssh/key ubuntu@${aws_instance.ec2.public_ip}"
+  value = "ssh ubuntu@${aws_instance.ec2.public_ip} -i ~/.ssh/key"
 }
 ###################### ####### ######################
