@@ -83,7 +83,7 @@ resource "aws_security_group" "sg_terraform" {
 ###################### Security Group Ingress Rule ######################
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_ipv4" {
   security_group_id = aws_security_group.sg_terraform.id
-  description = "Allow SSH inbound traffic IPv4."
+  description       = "Allow SSH inbound traffic IPv4."
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
@@ -97,7 +97,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_ipv4" {
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_http_ipv4" {
   security_group_id = aws_security_group.sg_terraform.id
-  description = "Allow HTTP inbound traffic IPv4."
+  description       = "Allow HTTP inbound traffic IPv4."
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
@@ -111,7 +111,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_ipv4" {
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_https_ipv4" {
   security_group_id = aws_security_group.sg_terraform.id
-  description = "Allow HTTPS inbound traffic IPv4."
+  description       = "Allow HTTPS inbound traffic IPv4."
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   ip_protocol       = "tcp"
@@ -128,7 +128,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_https_ipv4" {
 ###################### Security Group Egress Rule ######################
 resource "aws_vpc_security_group_egress_rule" "egress_ssh_ipv4" {
   security_group_id = aws_security_group.sg_terraform.id
-  description = "Allow SSH outbound traffic IPv4."
+  description       = "Allow SSH outbound traffic IPv4."
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
@@ -142,7 +142,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_ipv4" {
 
 resource "aws_vpc_security_group_egress_rule" "egress_http_ipv4" {
   security_group_id = aws_security_group.sg_terraform.id
-  description = "Allow HTTP outbound traffic IPv4."
+  description       = "Allow HTTP outbound traffic IPv4."
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
@@ -156,7 +156,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_http_ipv4" {
 
 resource "aws_vpc_security_group_egress_rule" "egress_https_ipv4" {
   security_group_id = aws_security_group.sg_terraform.id
-  description = "Allow HTTPS outbound traffic IPv4."
+  description       = "Allow HTTPS outbound traffic IPv4."
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 443
   ip_protocol       = "tcp"
