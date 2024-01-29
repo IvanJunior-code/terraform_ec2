@@ -205,3 +205,15 @@ resource "aws_route_table_association" "association_subnet_route" {
   route_table_id = aws_route_table.route_table_terraform.id
 }
 ###################### ##### ##### ########### ######################
+
+
+###################### Elastic IP ######################
+resource "aws_eip" "eip_terraform" {
+  instance = aws_instance.ec2_terraform.id
+
+  tags = {
+    Name      = "Elastic IP"
+    ManagedBy = var.tags_ManagedBy
+  }
+}
+###################### ####### ## ######################
