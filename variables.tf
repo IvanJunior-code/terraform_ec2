@@ -15,7 +15,7 @@ variable "ami" {
 }
 
 variable "key_name" {
-  default = "ssh_key"
+  default = "us-east-1_work"
 }
 
 variable "vpc_cidr_block" {
