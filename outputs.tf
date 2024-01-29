@@ -4,6 +4,6 @@
 # }
 
 output "connect_ssh" {
-  value = "ssh ubuntu@${aws_eip.eip_terraform.public_ip} -i ~/.ssh/key"
+  value = "ssh ubuntu@${aws_eip.eip_terraform.public_ip} -i ~/.ssh/${aws_key_pair.ssh_key_terraform.key_name}"
 }
 ###################### ####### ######################
