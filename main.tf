@@ -221,10 +221,11 @@ resource "aws_eip" "eip_terraform" {
 
 ###################### S3 Bucket ######################
 resource "aws_s3_bucket" "s3_terraform" {
-  bucket = "s3-bucket-terraform-ivan"
+  bucket        = "s3-bucket-terraform-ivan"
+  force_destroy = true
 
   tags = {
-    Name        = "S3 Bucket"
+    Name      = "S3 Bucket"
     ManagedBy = var.tags_ManagedBy
   }
 }
