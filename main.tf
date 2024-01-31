@@ -1,4 +1,9 @@
 terraform {
+  backend "s3" {
+    bucket = "s3-bucket-terraform-ivan"
+    key    = "terraform-state/terraform.tfstate"
+    region = "us-east-1"
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
