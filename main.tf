@@ -1,9 +1,4 @@
 terraform {
-  backend "s3" {
-    bucket = "s3-bucket-terraform-ivan"
-    key    = "terraform-state/terraform.tfstate"
-    region = "us-east-1"
-  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -222,16 +217,3 @@ resource "aws_eip" "eip_terraform" {
   }
 }
 ###################### ####### ## ######################
-
-
-###################### S3 Bucket ######################
-resource "aws_s3_bucket" "s3_terraform" {
-  bucket        = "s3-bucket-terraform-ivan"
-  force_destroy = true
-
-  tags = {
-    Name      = "S3 Bucket"
-    ManagedBy = var.tags_ManagedBy
-  }
-}
-###################### ## ###### ######################
